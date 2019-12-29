@@ -602,7 +602,7 @@ class League:
                                             req_type, date, season, week)
         return stats
 
-    def _fetch_plyr_stats(self, game_code, player_ids, req_type, date, season):
+    def _fetch_plyr_stats(self, game_code, player_ids, req_type, date, season, week):
         '''
         Fetch player stats for at most 25 player IDs.
 
@@ -616,7 +616,7 @@ class League:
         '''
         assert(len(player_ids) > 0 and len(player_ids) <= 25)
         json = self.yhandler.get_player_stats_raw(game_code, player_ids,
-                                                  req_type, date, season)
+                                                  req_type, date, season, week)
         t = objectpath.Tree(json)
         stats = []
         row = None
