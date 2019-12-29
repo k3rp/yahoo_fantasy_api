@@ -272,7 +272,7 @@ class YHandler:
                 if i != 0:
                     uri += ","
                 uri += "{}.p.{}".format(game_code, p)
-        uri += "/stats;{}".format(self._get_stats_type(req_type, date, season))
+        uri += "/stats;{}".format(self._get_stats_type(req_type, date, season, week))
         return uri
 
     def _get_stats_type(self, req_type, date, season, week):
