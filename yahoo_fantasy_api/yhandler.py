@@ -242,7 +242,7 @@ class YHandler:
         return self.put("transaction/" + str(transaction_key), xml)
 
     def get_player_stats_raw(self, game_code, player_ids, req_type, date,
-                             season):
+                             season, week):
         """
         GET stats for a list of player IDs
 
@@ -261,11 +261,11 @@ class YHandler:
         :return: Response from the GET call
         """
         uri = self._build_player_stats_uri(game_code, player_ids, req_type,
-                                           date, season)
+                                           date, season, week)
         return self.get(uri)
 
     def _build_player_stats_uri(self, game_code, player_ids, req_type, date,
-                                season):
+                                season, week):
         uri = 'players;player_keys='
         if type(player_ids) is list:
             for i, p in enumerate(player_ids):
@@ -275,7 +275,7 @@ class YHandler:
         uri += "/stats;{}".format(self._get_stats_type(req_type, date, season))
         return uri
 
-    def _get_stats_type(self, req_type, date, season):
+    def _get_stats_type(self, req_type, date, season, week):
         if req_type == 'season':
             if season is None:
                 return "type=season"
@@ -290,5 +290,7 @@ class YHandler:
                 return "type=date;date={}".format(date)
         elif req_type in ['lastweek', 'lastmonth']:
             return "type={}".format(req_type)
+        elif req_type == 'week':
+            return "type=week;week={}".format(week)
         else:
             assert(False), "Unknown req_type type: {}".format(req_type)

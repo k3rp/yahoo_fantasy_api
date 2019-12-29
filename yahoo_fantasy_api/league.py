@@ -535,7 +535,7 @@ class League:
             self.positions_cache = pmap
         return self.positions_cache
 
-    def player_stats(self, player_ids, req_type, date=None, season=None):
+    def player_stats(self, player_ids, req_type, date=None, season=None, week=None):
         """Return stats for a list of players
 
         :param player_ids: Yahoo! player IDs of the players to get stats for
@@ -599,7 +599,7 @@ class League:
             next_player_ids = player_ids[0:25]
             player_ids = player_ids[25:]
             stats += self._fetch_plyr_stats(game_code, next_player_ids,
-                                            req_type, date, season)
+                                            req_type, date, season, week)
         return stats
 
     def _fetch_plyr_stats(self, game_code, player_ids, req_type, date, season):
